@@ -1,0 +1,63 @@
+# CPT111 - Movie Recommendation System
+
+This project is a Java-based movie recommendation system developed for the CPT111 (Java Programming) module.
+
+---
+
+## Project Structure
+- **src/**
+	- **main/**
+		- **java/**
+			- **app/**
+				- CommendApp.java
+				- GUIApp.java
+			- **commend/**
+				- Login.java
+				- Main.java
+			- **controller/**
+				- AllMoviesController.java
+				- ForgetPasswordController.java
+				- HistoryController.java
+				- HomeController.java
+				- LoginController.java
+				- MainController.java
+				- RecommendationController.java
+				- RegisterController.java
+				- WatchlistController.java
+			- **exception/**
+				- InvalidCharacterException.java
+				- LengthException.java
+				- UsernameFormatException.java
+			- **model/**
+				- **recommendation/**
+					- **advanced/**
+						- DecadeRating.java
+						- GenreRating.java
+					- **basic/**
+						- DecadeRecommendation.java
+						- GenreRecommendation.java
+						- RatingRecommendation.java
+					- RecommendationStrategy.java
+				- **user/**
+					- BasicUser.java
+					- PremiumUser.java
+					- User.java
+				- Movie.java
+			- **util/**
+				- ControllerManager.java
+				- DataManager.java
+				- RecommendManager.java
+		- **resources/**
+			- **data/**
+				- movies.csv
+				- users.csv
+			- **view/**
+				- AllMovies.fxml
+				- ForgetPassword.fxml
+				- History.fxml
+				- Home.fxml
+				- Login.fxml
+				- Recommendation.fxml
+				- Register.fxml
+				- Watchlist.fxml
+	- module-info.java
