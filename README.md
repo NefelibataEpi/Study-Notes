@@ -10,7 +10,7 @@ It serves as a centralized place where I store, organize, and track my learning 
 ### 1. CPT111 - Movie Recommendation System (Java Project)
 A Java-based movie recommendation system implementing OOP principle, file handling, and multiple recommendation strategies.
 	See the full project here:
-	'/CPT111-Movie-Recommendation-System'
+	`/CPT111-Movie-Recommendation-System`
 
 ---
 
