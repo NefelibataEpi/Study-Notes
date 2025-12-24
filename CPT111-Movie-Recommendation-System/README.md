@@ -20,12 +20,12 @@ The following chapters describe the system design, implementation details, and e
 
 The system separates UI, core logic, and CSV persistence to keep the codebase modular and easy to maintain.
 
-A key design decision of this project is to support two independent program entry points: a command-line interface (CLI), which satisfies the basic coursework requirements, and a graphical user interface (GUI) implemented using JavaFX as an advanced feature. Although the two interfaces differ in presentation, they share the same underlying logic and data handling mechanisms, ensuring consistent behaviour across different modes of use.
+A key design decision of this project is to support two independent program entry points: a command-line interface (CLI), which satisfies the basic coursework requirements, and a graphical user interface (GUI) implemented using JavaFX as an advanced feature. Although the two interfaces differ in presentation, they share the same underlying logic and data handling mechanisms, ensuring consistent behavior across different modes of use.
 
 ### 2.1 Project Structure
 The system follows a layered architecture, with packages organized according to their responsibilities. The overall project structure is shown in Figure 1. The source code starts from `src/main`, where the application is divided into several main packages, including application entry points, controllers, core models, utility classes, and data resources.
 
-<img src="E:\GitProjects\Study-Notes\CPT111-Movie-Recommendation-System\Images\Main Structure.png" alt="Main Structure" style="zoom:50%;" />
+<img src="./images/Main Structure.png" alt="Main Structure" style="zoom: 50%;" />
 
 At the top level, the `app` package contains the two program entry points: `CommandApp` for the command-line version and `GUIApp` for the JavaFX-based graphical version. This design allows the system to support both interfaces without duplicating business logic. Each entry point is responsible only for initializing the program and directing execution to the appropriate controllers.
 
@@ -216,22 +216,22 @@ This chapter summarises our testing approach and the evidence collected for veri
 ### 6.1 Functional Tests
 We verified the full CLI workflow from authentication to watchlist/history updates and recommendation output. The end-to-end run is shown in Figure 2, where the system remains interactive after each operation and returns to the main menu correctly.
 
-<img src="E:\GitProjects\Study-Notes\CPT111-Movie-Recommendation-System\Images\LoginTest.png" alt="LoginTest" style="zoom:33%;" /><img src="E:\GitProjects\Study-Notes\CPT111-Movie-Recommendation-System\Images\AddWatchlistTest.png" alt="AddWatchlistTest" style="zoom:33%;" /><img src="E:\GitProjects\Study-Notes\CPT111-Movie-Recommendation-System\Images\AddHistoryTest.png" alt="AddHistoryTest" style="zoom:33%;" /><img src="E:\GitProjects\Study-Notes\CPT111-Movie-Recommendation-System\Images\HistoryView.png" alt="HistoryView" style="zoom: 25%;" /><img src="E:\GitProjects\Study-Notes\CPT111-Movie-Recommendation-System\Images\Recommendation.png" alt="Recommendation" style="zoom:33%;" />
+<img src="./images/LoginTest.png" alt="LoginTest" style="zoom:33%;" /><img src="./images/AddWatchlistTest.png" alt="AddWatchlistTest" style="zoom:33%;" /><img src="./images/AddHistoryTest.png" alt="AddHistoryTest" style="zoom:33%;" /><img src="./images/HistoryView.png" alt="HistoryView" style="zoom:33%;" /><img src="./images/Recommendation.png" alt="Recommendation" style="zoom:33%;" />
 
 For GUI robustness, we tested invalid login inputs and verified that the program does not crash but displays clear feedback. Figure 3 demonstrates error handling on the login page and also shows a successful registration or password reset flow.
 
-<img src="E:\GitProjects\Study-Notes\CPT111-Movie-Recommendation-System\Images\WrongPassword.png" alt="WrongPassword" style="zoom: 50%;" /><img src="E:\GitProjects\Study-Notes\CPT111-Movie-Recommendation-System\Images\WrongCode.png" alt="WrongCode" style="zoom:50%;" /><img src="E:\GitProjects\Study-Notes\CPT111-Movie-Recommendation-System\Images\RegisterSuccess.png" alt="RegisterSuccess" style="zoom:50%;" /><img src="E:\GitProjects\Study-Notes\CPT111-Movie-Recommendation-System\Images\ForgetPasswordSuccess.png" alt="ForgetPasswordSuccess" style="zoom:50%;" />
+<img src="./images/WrongPassword.png" alt="WrongPassword" style="zoom: 50%;" /><img src="./images/WrongCode.png" alt="WrongCode" style="zoom:50%;" /><img src="./images/RegisterSuccess.png" alt="RegisterSuccess" style="zoom:50%;" /><img src="./images/ForgetPasswordSuccess.png" alt="ForgetPasswordSuccess" style="zoom:50%;" />
 
 When the user requests a fixed number of recommendations, the system returns a Top-N list and avoids suggesting movies the user has already added to the watchlist or watched before. This behaviour is evidenced in Figure 4, where N = 8 produces exactly eight recommendations and none of the IDs overlap with the user’s existing watchlist/history.
 
-<img src="E:\GitProjects\Study-Notes\CPT111-Movie-Recommendation-System\Images\Watchlist.png" alt="Watchlist" style="zoom:33%;" /><img src="E:\GitProjects\Study-Notes\CPT111-Movie-Recommendation-System\Images\RecommendationNumber.png" alt="RecommendationNumber" style="zoom: 33%;" /><img src="E:\GitProjects\Study-Notes\CPT111-Movie-Recommendation-System\Images\History.png" alt="History" style="zoom:33%;" />
+<img src="./images/Watchlist.png" alt="Watchlist" style="zoom: 33%;" /><img src="./images/RecommendationNumber.png" alt="RecommendationNumber" style="zoom:33%;" /><img src="./images/History.png" alt="History" style="zoom:33%;" />
 
 ### 6.2 Persistence
 Persistence was validated by comparing the same user record in users.csv before and after state-changing operations. Figure 5 shows the updated watchlist/history fields after marking a movie as watched, confirming that changes are written back and reloaded correctly across runs.
 
-![Before](E:\GitProjects\Study-Notes\CPT111-Movie-Recommendation-System\Images\Before.png)
+![Before](./images/Before.png)
 
-![After](E:\GitProjects\Study-Notes\CPT111-Movie-Recommendation-System\Images\After.png)
+![After](./images/After.png)
 
 ### 6.3 Invalid Inputs and Exception
 In the CLI version, robustness is achieved through defensive checks around menu selection and user-provided values. The program validates inputs before executing operations such as adding/removing watchlist items, marking movies as watched, and requesting recommendations. When an invalid option or value is entered, the program prints an error message and returns to the menu loop instead of terminating. This ensures that incorrect input becomes a recoverable event rather than a fatal error. For operations that depend on movie IDs, the program checks whether the entered ID exists and prevents duplicates (e.g., adding the same movie twice to the watchlist). For authentication-related actions, the program verifies username constraints and password correctness before changing state.
@@ -260,7 +260,7 @@ public static void showSuccessAlert(String title, String message) {
 
 ## 7.0 Team Practices
 
-We organised the work around clear module ownership (object design, login/authentication, CLI core features and recommendation logic, and JavaFX GUI). The CLI was implemented first as a stable baseline, then the GUI was built on top by reusing the same underlying operations to keep behaviour consistent. Integration issues (e.g., navigation or state passing between scenes) were discussed and resolved through group messaging, and we reviewed the end-to-end workflow together before finalising the report.
+We organised the work around clear module ownership (object design, login/authentication, CLI core features and recommendation logic, and JavaFX GUI). The CLI was implemented first as a stable baseline, then the GUI was built on top by reusing the same underlying operations to keep behaviour consistent. Integration issues (e.g., navigation or state passing between scenes) were discussed and resolved through group messaging, and we reviewed the end-to-end workflow together before finalizing the report.
 
 ---
 
